@@ -1,0 +1,32 @@
+{
+  "name": "moonow-backend-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.ts",
+  "scripts": {
+    "start:watch": "tsc-watch --onSuccess \"node dist/index.js\"",
+    "start": "node dist/index.js",
+    "dev": "nodemon dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aphxrism/moonow-backend-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aphxrism/moonow-backend-app/issues"
+  },
+  "homepage": "https://github.com/aphxrism/moonow-backend-app#readme",
+  "devDependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.24",
+    "tsc-watch": "^5.0.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3"
+  }
+}
