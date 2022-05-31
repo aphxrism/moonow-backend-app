@@ -1,7 +1,7 @@
-import { Router } from "express"
-import { AppController } from "../../controllers/app"
+import { Router } from '../../middlewares/route'
+import { AppController } from '../../controllers/app'
 
-const AppRouter = Router()
+const AppRouter = new Router('/app')
 
 AppRouter.get('/package.json', AppController.getConfig)
 

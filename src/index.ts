@@ -9,5 +9,5 @@ const PORT: number = process.env.PORT || 3000
 const server: http.Server = http.createServer(Server)
 
 server.listen(PORT, HOSTNAME, () => {
-    console.log(`Running server at http://${HOSTNAME}:${PORT}/...`)
+    console.log(`Server is running at http://${HOSTNAME}:${PORT}/...`)
 })

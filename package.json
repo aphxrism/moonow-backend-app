@@ -21,12 +21,14 @@
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
     "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^17.0.24",
     "tsc-watch": "^5.0.3"
   },
   "dependencies": {
     "body-parser": "^1.20.0",
     "dotenv": "^16.0.0",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1"
   }
 }

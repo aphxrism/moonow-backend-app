@@ -1,11 +1,10 @@
-import { Request, Response } from "express"
-import { HttpStatusCodes } from "../../common/constants/httpStatusCodes"
+import { OperationResult } from "../../common/interfaces/operationResult"
+import { AppService } from "../../services/app"
 
 class AppController {
 
-    public static getConfig(request: Request, response: Response) {
-        const config = require('../../../package.json')
-        response.status(HttpStatusCodes.OK).json(config)
+    static async getConfig(): Promise<OperationResult> {
+        return await AppService.getConfig()
     }
 
 }
