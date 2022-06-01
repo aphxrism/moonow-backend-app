@@ -12,5 +12,12 @@ export function RegisterValidation (body: RegisterPayload, source: string): ApiE
         status: HttpStatusCodes.BAD_REQUEST,
     }
 
+    if (!body.password) return {
+        code: ErrorCodes.api.invalidPassword,
+        message: 'Given password value is invalid',
+        source: source,
+        status: HttpStatusCodes.BAD_REQUEST,
+    }
+
     return null
 }

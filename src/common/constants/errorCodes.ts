@@ -3,6 +3,7 @@ export const ErrorCodes = {
 
     api: {
         invalidEmail: 'invalidEmail',
+        invalidPassword: 'invalidPassword',
         failedToGenerateToken: 'failedToGenerateToken',
     },
 }

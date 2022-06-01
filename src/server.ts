@@ -1,16 +1,39 @@
-import express from 'express'
+import express, { Express } from 'express'
 import bodyParser from 'body-parser'
 import { router } from './routes'
+import 'reflect-metadata'
 import { ErrorMiddleware } from './middlewares/error'
+import { DatabaseInstance } from './database/postgres'
 
-const Server = express()
+export abstract class Server {
 
-Server.use(express.json())
-Server.use(bodyParser.urlencoded({ extended: false }))
-Server.use(bodyParser.json())
-Server.use('/api', router)
+    private static instance: Express
+    private static PORT: number
 
-Server.use(ErrorMiddleware)
+    static getInstance() { 
+        return this.instance 
+    }
 
+    static async init (): Promise<void> {
+        this.PORT = parseInt(process.env.PORT) || 3000
 
-export { Server }
+        this.instance = express()
+
+        this.initializeHandlers()
+        await DatabaseInstance.initializeModels()
+
+        Server.instance.listen(Server.PORT, () => {
+            console.log(`Server it running at http://${process.env.HOSTNAME}:${Server.PORT}`)
+        })
+    }
+
+    private static initializeHandlers () {
+        this.instance.use(express.json())
+        this.instance.use(bodyParser.urlencoded({ extended: false }))
+        this.instance.use(bodyParser.json())
+        this.instance.use('/api', router)
+        
+        this.instance.use(ErrorMiddleware)
+    }
+
+}

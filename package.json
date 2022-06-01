@@ -34,7 +34,9 @@
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.3",
+    "reflect-metadata": "^0.1.13",
     "sequelize": "^6.20.1",
+    "typedi": "^0.10.0",
     "validator": "^13.7.0"
   }
 }
