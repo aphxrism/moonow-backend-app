@@ -9,6 +9,7 @@ export class DatabaseInstance {
     
     static getConnection (): Sequelize {
         if (!this.connection) {
+            console.log(process.env.HOSTNAME)
             const options: Options = {
                 host: process.env.HOSTNAME,
                 username: process.env.POSTGRES_USER,
@@ -18,6 +19,7 @@ export class DatabaseInstance {
                 dialect: 'postgres',
                 logging: false,
             }
+            console.log(options)
             this.connection = new Sequelize(options)
         }
 
@@ -27,25 +29,15 @@ export class DatabaseInstance {
     static async initializeModels (): Promise<void> {
         try {
             DatabaseInstance.getConnection()
-            await this.connection.authenticate()
+            // await this.connection.authenticate()
 
-            // initializeAccountsModel(this.connection)
-            // AccountsModel.init({
-            //     id: {
-            //         type: DataTypes.INTEGER,
-            //         autoIncrement: true,
-            //         primaryKey: true,
-            //     },
-            // }, {
-            //     sequelize: this.connection,
-            //     tableName: DatabaseConfig.TABLE_NAMES.Accounts,
-            //     timestamps: false,
-            // })
-        
-            AccountsModel.sync({ alter: true })
+            const models = [
+                AccountsModel,
+            ];
 
-            const account = new AccountsModel({ id: 1 })
-            account.save()
+            for(const key in models) {
+                models[key].sync({ alter: true })
+            }
 
             console.log('Database models & relations initialized!')
         } catch (err) {

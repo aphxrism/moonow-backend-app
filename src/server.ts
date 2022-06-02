@@ -1,7 +1,6 @@
 import express, { Express } from 'express'
 import bodyParser from 'body-parser'
 import { router } from './routes'
-import 'reflect-metadata'
 import { ErrorMiddleware } from './middlewares/error'
 import { DatabaseInstance } from './database/postgres'
 
@@ -11,7 +10,7 @@ export abstract class Server {
     private static PORT: number
 
     static getInstance() { 
-        return this.instance 
+        return this.instance
     }
 
     static async init (): Promise<void> {
