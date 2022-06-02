@@ -1,5 +1,5 @@
 import { Router as ExpressRouter, Request, Response } from 'express'
-import { HttpStatusCodes } from '../../common/constants/httpStatusCodes'
+import { ActRouter } from './actRouter'
 
 export class Router {
 
@@ -11,27 +11,15 @@ export class Router {
         this.prefix = prefix
     }
 
-    static generalHandling = async (request: Request, response: Response, callback: any, next: any) => {
-        try {
-            let payload = request.body
-            if (request.method === 'GET') payload = request.query
-            
-            const result = await callback(payload)
-            response.status(HttpStatusCodes.OK).json(result)
-        } catch (err) {
-            next(err)
-        }
-    }
-
-    get = async (route: string, callback: any) => {
+    get = async (route: string, callBack: any) => {
         return this.expressRouter.get(this.prefix + route, async function (request: Request, response: Response, next) {
-            return await Router.generalHandling(request, response, callback, next);
+            return await ActRouter(request, response, callBack, next)
         })
     }
 
-    post = async (route: string, callback: any) => {
+    post = async (route: string, callBack: any) => {
         return this.expressRouter.post(this.prefix + route, async function (request: Request, response: Response, next) {
-            return await Router.generalHandling(request, response, callback, next);
+            return await ActRouter(request, response, callBack, next)
         })
     }
 
