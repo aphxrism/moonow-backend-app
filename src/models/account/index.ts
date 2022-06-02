@@ -1,30 +1,30 @@
-import { DataTypes } from 'sequelize'
+import { DataTypes, Model, Sequelize } from 'sequelize'
 import { DatabaseConfig } from '../../database/config'
-import { DatabaseInstance } from '../../database/postgres'
 
-const AccountsModel = DatabaseInstance.getConnection().define(DatabaseConfig.TABLE_NAMES.Accounts, {
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-}, {
-    timestamps: false,
-})
+export class AccountsModel extends Model {
+    id!: number
+    email!: string
+    hash!: string
+}
 
-export { AccountsModel }
-
-// export function initializeAccountsModel (sequelize: Sequelize): void {
-// initializeAccountsModel(this.connection)
-// AccountsModel.init({
-//     id: {
-//         type: DataTypes.INTEGER,
-//         autoIncrement: true,
-//         primaryKey: true,
-//     },
-// }, {
-//     sequelize: this.connection,
-//     tableName: DatabaseConfig.TABLE_NAMES.Accounts,
-//     timestamps: false,
-// })
-// }
+export function initializeAccountsModel (sequelize: Sequelize): any {
+    return AccountsModel.init({
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        hash: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+    }, {
+        sequelize,
+        tableName: DatabaseConfig.TABLE_NAMES.Accounts,
+        timestamps: true,
+    })
+}

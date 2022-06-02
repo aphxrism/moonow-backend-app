@@ -1,7 +1,6 @@
-import { Sequelize, Options, Model, DataTypes } from 'sequelize'
+import { Sequelize, Options } from 'sequelize'
+import { initializeAccountsModel } from '../models/account'
 import { AccountsModel } from '../models/account'
-import { DatabaseConfig } from './config'
-// import { initializeAccountsModel } from '../models/account'
 
 export class DatabaseInstance {
 
@@ -9,7 +8,6 @@ export class DatabaseInstance {
     
     static getConnection (): Sequelize {
         if (!this.connection) {
-            console.log(process.env.HOSTNAME)
             const options: Options = {
                 host: process.env.HOSTNAME,
                 username: process.env.POSTGRES_USER,
@@ -19,7 +17,6 @@ export class DatabaseInstance {
                 dialect: 'postgres',
                 logging: false,
             }
-            console.log(options)
             this.connection = new Sequelize(options)
         }
 
@@ -29,15 +26,9 @@ export class DatabaseInstance {
     static async initializeModels (): Promise<void> {
         try {
             DatabaseInstance.getConnection()
-            // await this.connection.authenticate()
+            await this.connection.authenticate()
 
-            const models = [
-                AccountsModel,
-            ];
-
-            for(const key in models) {
-                models[key].sync({ alter: true })
-            }
+            initializeAccountsModel(this.connection)
 
             console.log('Database models & relations initialized!')
         } catch (err) {

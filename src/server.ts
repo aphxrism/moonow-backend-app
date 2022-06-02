@@ -1,10 +1,13 @@
+import 'reflect-metadata'
+import { Container, Service } from 'typedi'
 import express, { Express } from 'express'
 import bodyParser from 'body-parser'
 import { router } from './routes'
 import { ErrorMiddleware } from './middlewares/error'
 import { DatabaseInstance } from './database/postgres'
 
-export abstract class Server {
+@Service()
+export class Server {
 
     private static instance: Express
     private static PORT: number
@@ -13,15 +16,15 @@ export abstract class Server {
         return this.instance
     }
 
-    static async init (): Promise<void> {
-        this.PORT = parseInt(process.env.PORT) || 3000
+    async init (): Promise<void> {
+        Server.PORT = parseInt(process.env.PORT) || 3000
 
-        this.instance = express()
+        Server.instance = express()
 
-        this.initializeHandlers()
-        await DatabaseInstance.initializeModels()
+        Server.initializeHandlers()
+        await Server.initializeConnections()
 
-        Server.instance.listen(Server.PORT, () => {
+        Server.instance.listen(Server.PORT, async () => {
             console.log(`Server it running at http://${process.env.HOSTNAME}:${Server.PORT}`)
         })
     }
@@ -33,6 +36,11 @@ export abstract class Server {
         this.instance.use('/api', router)
         
         this.instance.use(ErrorMiddleware)
+    }
+
+    private static async initializeConnections () {
+        await DatabaseInstance.initializeModels()
+        await DatabaseInstance.getConnection().sync({ alter: true })
     }
 
 }
