@@ -1,5 +1,5 @@
-import { HttpMethods, routeEndpoints } from '../common/constants/routeEndpoints'
-import { IValidator } from '../common/interfaces/validator'
+import { HttpMethods, routeEndpoints } from '../constants/routeEndpoints'
+import { IValidator } from '../interfaces/validator'
 import validator from 'validator'
 
 const preparedValidations = {

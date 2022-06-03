@@ -3,8 +3,8 @@ import { Request, Response } from 'express'
 import { ErrorCodes } from '../../common/constants/errorCodes'
 import { HttpStatusCodes } from '../../common/constants/httpStatusCodes'
 import { routeEndpoints } from '../../common/constants/routeEndpoints'
-import { PortalError } from '../../utilities/error'
-import { Validations } from '../../validations'
+import { PortalError } from '../../common/utilities/error'
+import { Validations } from '../../common/validations'
 import { authorizationChecker } from './authorizationChecker'
 
 export async function ActRouter (request: Request, response: Response, callBack: any, next: any): Promise<void> {

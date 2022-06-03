@@ -1,11 +1,11 @@
 import { OperationResult } from '../common/interfaces/operationResult'
 import { LoginPayload, RegisterPayload } from '../common/interfaces/payloads/auth'
-import { PortalError } from '../utilities/error'
-import { Password } from '../utilities/password'
+import { PortalError } from '../common/utilities/error'
+import { Password } from '../common/utilities/password'
 import { AccountsModel } from '../models/accounts'
 import { ErrorCodes } from '../common/constants/errorCodes'
 import { HttpStatusCodes } from '../common/constants/httpStatusCodes'
-import { JsonWebToken } from '../utilities/jsonWebToken'
+import { JsonWebToken } from '../common/utilities/jsonWebToken'
 import { AccessTokensModel } from '../models/accessToken'
 
 export namespace AuthService {

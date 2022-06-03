@@ -1,7 +1,7 @@
 import { JwtPayload } from 'jsonwebtoken'
 import { AccessTokensModel } from '../../models/accessToken'
 import { AccountsModel } from '../../models/accounts'
-import { JsonWebToken } from '../../utilities/jsonWebToken'
+import { JsonWebToken } from '../../common/utilities/jsonWebToken'
 
 export async function authorizationChecker (access_token: string | undefined): Promise<AccountsModel | null> {
     if (!access_token) return null
