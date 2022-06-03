@@ -1,6 +1,7 @@
 import { Sequelize, Options } from 'sequelize'
 import { initializeAccessTokensModel } from '../models/accessToken'
 import { initializeAccountsModel } from '../models/accounts'
+import { initializeCategoriesModel } from '../models/category'
 
 export class DatabaseInstance {
 
@@ -29,10 +30,12 @@ export class DatabaseInstance {
             await this.connection.authenticate()
 
             initializeAccountsModel(this.connection)
+            initializeCategoriesModel(this.connection)
             initializeAccessTokensModel(this.connection)
 
             const {
                 AccountsModel,
+                CategoriesModel,
                 AccessTokensModel,
             } = this.connection.models
 
