@@ -1,5 +1,5 @@
-import { HttpStatusCodes } from "../../common/constants/httpStatusCodes";
-import { ApiError } from "../../common/interfaces/apiError";
+import { HttpStatusCodes } from "../common/constants/httpStatusCodes";
+import { ApiError } from "../common/interfaces/apiError";
 
 // export class PortalError extends Error {
 //     readonly code!: string;

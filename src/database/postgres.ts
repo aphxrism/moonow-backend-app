@@ -1,6 +1,6 @@
 import { Sequelize, Options } from 'sequelize'
-import { initializeAccountsModel } from '../models/account'
-import { AccountsModel } from '../models/account'
+import { initializeAccessTokensModel } from '../models/accessToken'
+import { initializeAccountsModel } from '../models/accounts'
 
 export class DatabaseInstance {
 
@@ -29,6 +29,14 @@ export class DatabaseInstance {
             await this.connection.authenticate()
 
             initializeAccountsModel(this.connection)
+            initializeAccessTokensModel(this.connection)
+
+            const {
+                AccountsModel,
+                AccessTokensModel,
+            } = this.connection.models
+
+            AccountsModel.hasOne(AccessTokensModel, { foreignKey: { name: 'account_id' } })
 
             console.log('Database models & relations initialized!')
         } catch (err) {

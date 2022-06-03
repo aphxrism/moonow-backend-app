@@ -1,8 +1,8 @@
-import { Request, Response } from "express"
-import { ErrorCodes } from "../../common/constants/errorCodes"
-import { HttpStatusCodes } from "../../common/constants/httpStatusCodes"
-import { ApiError } from "../../common/interfaces/apiError"
-import { OperationResult } from "../../common/interfaces/operationResult"
+import { Request, Response } from 'express'
+import { ErrorCodes } from '../common/constants/errorCodes'
+import { HttpStatusCodes } from '../common/constants/httpStatusCodes'
+import { ApiError } from '../common/interfaces/apiError'
+import { OperationResult } from '../common/interfaces/operationResult'
 
 export function ErrorMiddleware (err: any, request: Request, response: Response, next: any) {
     console.error(`${err.source} error: ${err.message}`)

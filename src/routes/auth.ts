@@ -1,5 +1,5 @@
-import { Router } from '../../middlewares/route'
-import { AuthController } from '../../controllers/auth'
+import { Router } from '../middlewares/route'
+import { AuthController } from '../controllers/auth'
 
 const AuthRouter = new Router('/auth')
 

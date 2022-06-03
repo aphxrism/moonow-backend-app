@@ -1,5 +1,5 @@
-import { Router } from '../../middlewares/route'
-import { AppController } from '../../controllers/app'
+import { Router } from '../middlewares/route'
+import { AppController } from '../controllers/app'
 
 const AppRouter = new Router('/app')
 

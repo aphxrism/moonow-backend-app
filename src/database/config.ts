@@ -8,5 +8,6 @@ export const DatabaseConfig = {
     },
     TABLE_NAMES: {
         Accounts: 'accounts',
+        AccessTokens: 'access_tokens',
     },
 }

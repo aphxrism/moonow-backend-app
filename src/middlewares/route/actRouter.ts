@@ -32,13 +32,23 @@ export async function ActRouter (request: Request, response: Response, callBack:
         }
 
         if(Validations[request.method] !== undefined && Validations[request.method][request.url] !== undefined) {
-            for (const key in payload) {
-                if (!Validations[request.method][request.url][key](payload[key])) throw PortalError({
-                    code: `${ErrorCodes.api.invalid}.${key}`,
-                    message: `Field '${key}' has an invalid value [${payload[key]}]`,
-                    status: HttpStatusCodes.BAD_REQUEST,
-                    source: 'ActRouter()',
-                })
+            for (const key in Validations[request.method][request.url]) {
+                if (payload[key] === undefined) {
+                    throw PortalError({
+                        code: `${ErrorCodes.api.invalid}.${key}`,
+                        message: `Field '${key}' has an undefined value`,
+                        status: HttpStatusCodes.BAD_REQUEST,
+                        source: 'ActRouter()',
+                    })
+                }
+                if (!Validations[request.method][request.url][key](payload[key])) {
+                    throw PortalError({
+                        code: `${ErrorCodes.api.invalid}.${key}`,
+                        message: `Field '${key}' has an invalid value [${payload[key]}]`,
+                        status: HttpStatusCodes.BAD_REQUEST,
+                        source: 'ActRouter()',
+                    })
+                }
             }
         }
 

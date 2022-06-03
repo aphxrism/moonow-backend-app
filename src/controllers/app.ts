@@ -1,5 +1,5 @@
-import { OperationResult } from "../../common/interfaces/operationResult"
-import { AppService } from "../../services/app"
+import { OperationResult } from "../common/interfaces/operationResult"
+import { AppService } from "../services/app"
 
 class AppController {
 

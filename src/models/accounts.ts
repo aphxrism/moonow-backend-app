@@ -1,11 +1,10 @@
 import { DataTypes, Model, Sequelize } from 'sequelize'
-import { DatabaseConfig } from '../../database/config'
+import { DatabaseConfig } from '../database/config'
 
 export class AccountsModel extends Model {
     id!: number
     email!: string
     hash!: string
-    access_token!: string
 }
 
 export function initializeAccountsModel (sequelize: Sequelize): any {
@@ -22,10 +21,6 @@ export function initializeAccountsModel (sequelize: Sequelize): any {
         hash: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
-        access_token: {
-            type: DataTypes.STRING,
-            allowNull: true,
         },
     }, {
         sequelize,

@@ -5,7 +5,8 @@ export const ErrorCodes = {
         invalid: 'invalid',
         emailExists: 'emailExists',
         invalidToken: 'invalidToken',
-        userNotFound: 'userNotFound',
+        accountNotFound: 'accountNotFound',
+        wrongPassword: 'wrongPassword',
         failedToGenerateToken: 'failedToGenerateToken',
     },
 }

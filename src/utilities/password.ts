@@ -6,4 +6,8 @@ export namespace Password {
         return await bcrypt.hash(password, 5)
     }
 
+    export async function compare (password: string, hash: string): Promise<boolean> {
+        return await bcrypt.compare(password, hash)
+    }
+
 }

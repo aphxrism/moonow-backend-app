@@ -1,4 +1,4 @@
-import { OperationResult } from "../../common/interfaces/operationResult";
+import { OperationResult } from "../common/interfaces/operationResult";
 
 export namespace CategoriesService {
 

@@ -1,6 +1,6 @@
-import { OperationResult } from '../../common/interfaces/operationResult'
-import { AuthService } from '../../services/auth'
-import { LoginPayload, RegisterPayload } from '../../common/interfaces/payloads/auth'
+import { OperationResult } from '../common/interfaces/operationResult'
+import { AuthService } from '../services/auth'
+import { LoginPayload, RegisterPayload } from '../common/interfaces/payloads/auth'
 
 export namespace AuthController {
 

@@ -1,5 +1,5 @@
-import { OperationResult } from "../../common/interfaces/operationResult";
-import { CategoriesService } from "../../services/categories";
+import { OperationResult } from "../common/interfaces/operationResult";
+import { CategoriesService } from "../services/categories";
 
 export namespace CategoriesController {
 
