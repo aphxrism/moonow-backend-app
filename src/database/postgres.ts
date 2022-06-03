@@ -1,7 +1,9 @@
 import { Sequelize, Options } from 'sequelize'
 import { initializeAccessTokensModel } from '../models/accessToken'
 import { initializeAccountsModel } from '../models/accounts'
+import { initializeArticlesModel } from '../models/article'
 import { initializeCategoriesModel } from '../models/category'
+import { DatabaseConfig } from './config'
 
 export class DatabaseInstance {
 
@@ -10,11 +12,8 @@ export class DatabaseInstance {
     static getConnection (): Sequelize {
         if (!this.connection) {
             const options: Options = {
-                host: process.env.HOSTNAME,
-                username: process.env.POSTGRES_USER,
-                password: process.env.POSTGRES_PASSWORD,
-                database: process.env.POSTGRES_DB,
-                port: parseInt(process.env.POSTGRES_PORT),
+                ...DatabaseConfig.CREDENTIALS,
+                port: parseInt(DatabaseConfig.CREDENTIALS.port),
                 dialect: 'postgres',
                 logging: false,
             }
@@ -30,16 +29,19 @@ export class DatabaseInstance {
             await this.connection.authenticate()
 
             initializeAccountsModel(this.connection)
+            initializeArticlesModel(this.connection)
             initializeCategoriesModel(this.connection)
             initializeAccessTokensModel(this.connection)
 
             const {
                 AccountsModel,
+                ArticlesModel,
                 CategoriesModel,
                 AccessTokensModel,
             } = this.connection.models
 
             AccountsModel.hasOne(AccessTokensModel, { foreignKey: { name: 'account_id' } })
+            CategoriesModel.hasOne(ArticlesModel, { foreignKey: { name: 'category_id' } })
 
             console.log('Database models & relations initialized!')
         } catch (err) {

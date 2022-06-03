@@ -15,7 +15,7 @@ export enum HttpMethods {
 }
 
 interface IRouteEndpoints { 
-    [key: string]: { 
+    [key: string]: {
         path: string
         method: HttpMethods
         authorized: boolean
@@ -36,6 +36,6 @@ export const routeEndpoints: IRouteEndpoints = {
     getCategories: {
         path: `${routeDefinitions.categories}`,
         method: HttpMethods.GET,
-        authorized: true,
+        authorized: false,
     },
 }

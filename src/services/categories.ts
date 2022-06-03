@@ -1,14 +1,17 @@
-import { OperationResult } from "../common/interfaces/operationResult";
-import { AccountsModel } from "../models/accounts";
+import { OperationResult } from '../common/interfaces/operationResult'
+import { CategoriesModel } from '../models/category'
 
 export namespace CategoriesService {
 
-    export async function getCategories (payload: any, account: AccountsModel): Promise<OperationResult> {
-        
+    export async function getCategories (): Promise<OperationResult> {
+        const categories = await CategoriesModel.findAll({
+            raw: true
+        })
+
         return {
             success: true,
             data: {
-                id: account.id,
+                list: categories,
             },
         }
     }

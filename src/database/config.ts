@@ -7,6 +7,7 @@ export const DatabaseConfig = {
         port: process.env.POSTGRES_PORT,
     },
     TABLE_NAMES: {
+        Articles: 'articles',
         Accounts: 'accounts',
         Categories: 'categories',
         AccessTokens: 'access_tokens',
