@@ -6,7 +6,10 @@
   "scripts": {
     "start:watch": "tsc-watch --onSuccess \"node dist/index.js\"",
     "start": "node dist/index.js",
-    "dev": "nodemon dist/index.js"
+    "dev": "nodemon dist/index.js",
+    "seeder:create": "node-pg-migrate --tsconfig tsconfig.json -m src/database/seeders --migration-filename-format utc create",
+    "seeder:up": "node-pg-migrate --tsconfig tsconfig.json --envPath .env -m src/database/seeders up --no-check-order",
+    "seeder:down": "node-pg-migrate --tsconfig tsconfig.json --envPath .env -m src/database/seeders down"
   },
   "repository": {
     "type": "git",
@@ -33,9 +36,11 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
+    "node-pg-migrate": "^6.2.1",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.20.1",
+    "ts-node": "^10.8.0",
     "typedi": "^0.10.0",
     "validator": "^13.7.0"
   }
