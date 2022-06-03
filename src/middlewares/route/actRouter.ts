@@ -2,14 +2,34 @@ import console from 'console'
 import { Request, Response } from 'express'
 import { ErrorCodes } from '../../common/constants/errorCodes'
 import { HttpStatusCodes } from '../../common/constants/httpStatusCodes'
+import { routeEndpoints } from '../../common/constants/routeEndpoints'
 import { PortalError } from '../../utilities/error'
 import { Validations } from '../../validations'
+import { authorizationChecker } from './authorizationChecker'
 
 export async function ActRouter (request: Request, response: Response, callBack: any, next: any): Promise<void> {
     try {
         let payload = request.body
+        request.url = request.url.replace(/\/+$/, '')
 
         if (request.method === 'GET') payload = request.query
+
+        for(const key in routeEndpoints) {
+            if (routeEndpoints[key].path === request.url 
+                && routeEndpoints[key].method === request.method 
+                && routeEndpoints[key].authorized
+            ) {
+                if (!await authorizationChecker(request.headers.authorization)) {
+                    throw PortalError({
+                        code: `${ErrorCodes.api.invalidToken}`,
+                        message: `Unauthorized attempt`,
+                        status: HttpStatusCodes.UNAUTHORIZED,
+                        source: 'ActRouter()',
+                    })
+                }
+                break
+            }
+        }
 
         if(Validations[request.method] !== undefined && Validations[request.method][request.url] !== undefined) {
             for (const key in payload) {

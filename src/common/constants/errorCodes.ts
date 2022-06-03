@@ -4,8 +4,8 @@ export const ErrorCodes = {
     api: {
         invalid: 'invalid',
         emailExists: 'emailExists',
-        invalidEmail: 'invalidEmail',
-        invalidPassword: 'invalidPassword',
+        invalidToken: 'invalidToken',
+        userNotFound: 'userNotFound',
         failedToGenerateToken: 'failedToGenerateToken',
     },
 }
