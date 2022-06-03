@@ -10,6 +10,8 @@ import { authorizationChecker } from './authorizationChecker'
 export async function ActRouter (request: Request, response: Response, callBack: any, next: any): Promise<void> {
     try {
         let payload = request.body
+        let foundAccount = null
+
         request.url = request.url.replace(/\/+$/, '')
 
         if (request.method === 'GET') payload = request.query
@@ -19,7 +21,8 @@ export async function ActRouter (request: Request, response: Response, callBack:
                 && routeEndpoints[key].method === request.method 
                 && routeEndpoints[key].authorized
             ) {
-                if (!await authorizationChecker(request.headers.authorization)) {
+                foundAccount = await authorizationChecker(request.headers.authorization)
+                if (!foundAccount) {
                     throw PortalError({
                         code: `${ErrorCodes.api.invalidToken}`,
                         message: `Unauthorized attempt`,
@@ -52,7 +55,7 @@ export async function ActRouter (request: Request, response: Response, callBack:
             }
         }
 
-        const result = await callBack(payload)
+        const result = await callBack(payload, foundAccount)
         
         response.status(HttpStatusCodes.OK).json(result)
     } catch (err) {
