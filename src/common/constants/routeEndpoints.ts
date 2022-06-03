@@ -1,8 +1,12 @@
-const routeDefinitions = {
+import { AccountRoles } from "./accountRoles"
+
+export const routeDefinitions = {
     auth: '/auth',
+    app: '/app',
     register: '/register',
     login: '/login',
     categories: '/categories',
+    articles: '/articles',
 }
 
 export enum HttpMethods {
@@ -19,6 +23,7 @@ interface IRouteEndpoints {
         path: string
         method: HttpMethods
         authorized: boolean
+        allowedRole?: AccountRoles
     } 
 }
 
@@ -37,5 +42,11 @@ export const routeEndpoints: IRouteEndpoints = {
         path: `${routeDefinitions.categories}`,
         method: HttpMethods.GET,
         authorized: false,
+    },
+    postArticle: {
+        path: `${routeDefinitions.articles}`,
+        method: HttpMethods.POST,
+        authorized: true,
+        allowedRole: AccountRoles.WRITER,
     },
 }
