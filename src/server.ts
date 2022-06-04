@@ -40,7 +40,7 @@ export class Server {
 
     private static async initializeConnections () {
         await DatabaseInstance.initializeModels()
-        await DatabaseInstance.getConnection().sync({ alter: true })
+        await DatabaseInstance.getConnection().sync()
     }
 
 }

@@ -1,29 +1,51 @@
 import { Router as ExpressRouter, Request, Response } from 'express'
+import { HttpMethods, IRouteEndpoints } from '../../common/constants/routeEndpoints'
 import { OperationResult } from '../../common/interfaces/operationResult'
+import { Route } from '../../common/utilities/route'
 import { ActRouter } from './actRouter'
 
 type TCallBack = (...args: any) => Promise<OperationResult>
 
 export class Router {
 
-    public expressRouter: ExpressRouter
-    public prefix: string
+    expressRouter: ExpressRouter
+    prefix: string
 
     constructor (prefix: string) {
         this.expressRouter = ExpressRouter()
         this.prefix = prefix
     }
 
-    get = async (route: string, callBack: TCallBack) => {
-        return this.expressRouter.get(this.prefix + route, async function (request: Request, response: Response, next) {
-            return await ActRouter(request, response, callBack, next)
+    get =  (routePath: string, callBack: TCallBack) => {
+        const route = new Route(this.prefix + routePath)
+
+        this.expressRouter.get(route.routePath, async (request: Request, response: Response, next) => {
+            return await ActRouter({
+                route,
+                request,
+                response,
+                callBack,
+                next,
+            })
         })
+
+        return route
     }
 
-    post = async (route: string, callBack: TCallBack) => {
-        return this.expressRouter.post(this.prefix + route, async function (request: Request, response: Response, next) {
-            return await ActRouter(request, response, callBack, next)
+    post = (routePath: string, callBack: TCallBack) => {
+        const route = new Route(this.prefix + routePath)
+
+        this.expressRouter.post(route.routePath, async (request: Request, response: Response, next) => {
+            return await ActRouter({
+                route,
+                request,
+                response,
+                callBack,
+                next,
+            })
         })
+
+        return route
     }
 
 }

@@ -1,5 +1,5 @@
 export enum AccountRoles {
-    READER,
-    WRITER,
-    ADMIN,
+    READER = 'READER',
+    WRITER = 'WRITER',
+    ADMIN = 'ADMIN',
 }

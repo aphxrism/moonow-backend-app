@@ -1,10 +1,23 @@
 import { Router } from '../middlewares/route'
 import { AuthController } from '../controllers/auth'
-import { routeDefinitions } from '../common/constants/routeEndpoints'
+import { GeneralValidations } from '../common/validations'
 
-const AuthRouter = new Router(routeDefinitions.auth)
+export const AuthRouter = new Router('/auth')
 
 AuthRouter.post('/register', AuthController.register)
-AuthRouter.post('/login', AuthController.login)
+    .configure({ 
+        authorized: false 
+    })
+    .validate({
+        email: GeneralValidations.email,
+        password: GeneralValidations.password,
+    })
 
-export { AuthRouter }
+AuthRouter.post('/login', AuthController.login)
+    .configure({
+        authorized: false,
+    })
+    .validate({
+        email: GeneralValidations.email,
+        password: GeneralValidations.password,
+    })
