@@ -1,7 +1,8 @@
+import { AccountRoles } from "../common/constants/accountRoles";
 import { ErrorCodes } from "../common/constants/errorCodes";
 import { HttpStatusCodes } from "../common/constants/httpStatusCodes";
 import { OperationResult } from "../common/interfaces/operationResult";
-import { PostArticlePayload, PutArticlePayload } from "../common/interfaces/payloads/articles";
+import { DeleteArticlePayload, PostArticlePayload, PutArticlePayload } from "../common/interfaces/payloads/articles";
 import { PortalError } from "../common/utilities/error";
 import { AccountsModel } from "../models/accounts";
 import { ArticlesModel } from "../models/article";
@@ -53,10 +54,10 @@ export namespace ArticlesService {
         })
 
         const article = await ArticlesModel.findOne({
-            where: {
+            where: account.role === AccountRoles.WRITER ? {
                 id: payload.id,
                 account_id: account.id,
-            },
+            } : { id: payload.id },
         })
 
         if (!article) throw PortalError({
@@ -71,6 +72,28 @@ export namespace ArticlesService {
             category_id: category.id,
             content: payload.content,
         })
+
+        return {
+            success: true,
+        }
+    }
+
+    export async function deleteArticle (payload: DeleteArticlePayload, account: AccountsModel): Promise<OperationResult> {
+        const article = await ArticlesModel.findOne({
+            where: account.role === AccountRoles.WRITER ? {
+                id: payload.id,
+                account_id: account.id,
+            } : { id: payload.id },
+        })
+
+        if (!article) throw PortalError({
+            code: ErrorCodes.api.articleNotFound,
+            status: HttpStatusCodes.NOT_FOUND,
+            message: `Article [${payload.id}] is not found`,
+            source: 'ArticlesService.deleteArticle()',
+        })
+        
+        article.destroy()
 
         return {
             success: true,

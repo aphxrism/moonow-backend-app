@@ -6,4 +6,8 @@ export interface PostArticlePayload {
     content: IArticleContent
 }
 
-export type PutArticlePayload = PostArticlePayload & { id: number }
+type TArticleId = { id: number }
+
+export type PutArticlePayload = PostArticlePayload & TArticleId
+
+export type DeleteArticlePayload = TArticleId

@@ -64,4 +64,20 @@ export class Router {
         return route
     }
 
+    delete = (routePath: string, callBack: TCallBack) => {
+        const route = new Route(this.prefix + routePath)
+
+        this.expressRouter.delete(route.routePath, async (request: Request, response: Response, next) => {
+            return await ActRouter({
+                route,
+                request,
+                response,
+                callBack,
+                next,
+            })
+        })
+
+        return route
+    }
+
 }
