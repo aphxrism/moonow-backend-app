@@ -6,22 +6,34 @@ import { ArticleContentTypes, IArticleContent } from '../common/interfaces/artic
 
 export const ArticlesRouter = new Router('/articles')
 
+const ArticlesValidation = {
+    title: GeneralValidations.isNotEmpty,
+    short_name: (value: string) => value ? true : false,
+    content: (value: IArticleContent) => {
+        if (value === null) return false
+
+        for(const key in value) {
+            if (value[key].content === undefined || value[key].type === undefined) return false
+
+            if (!Object.keys(ArticleContentTypes).includes(value[key].type)) return false
+        }
+        return true
+    },
+}
+
 ArticlesRouter.post('/', ArticlesController.postArticle)
     .configure({
         authorized: true,
         allowedRole: AccountRoles.WRITER,
     })
+    .validate(ArticlesValidation)
+
+ArticlesRouter.put('/', ArticlesController.putArticle)
+    .configure({
+        authorized: true,
+        allowedRole: AccountRoles.WRITER,
+    })
     .validate({
-        title: GeneralValidations.isNotEmpty,
-        short_name: (value: string) => value ? true : false,
-        content: (value: IArticleContent) => {
-            if (value === null) return false
-
-            for(const key in value) {
-                if (value[key].content === undefined || value[key].type === undefined) return false
-
-                if (!Object.keys(ArticleContentTypes).includes(value[key].type)) return false
-            }
-            return true
-        },
+        ...ArticlesValidation,
+        id: (value: number) => typeof value === 'number',
     })

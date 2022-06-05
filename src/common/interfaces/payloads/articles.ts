@@ -5,3 +5,5 @@ export interface PostArticlePayload {
     short_name: string
     content: IArticleContent
 }
+
+export type PutArticlePayload = PostArticlePayload & { id: number }

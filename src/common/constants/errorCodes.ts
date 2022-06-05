@@ -8,6 +8,7 @@ export const ErrorCodes = {
         accessDenied: 'accessDenied',
         wrongPassword: 'wrongPassword',
         accountNotFound: 'accountNotFound',
+        articleNotFound: 'articleNotFound',
         categoryNotFound: 'categoryNotFound',
         failedToGenerateToken: 'failedToGenerateToken',
     },

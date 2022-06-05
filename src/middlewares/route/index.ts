@@ -48,4 +48,20 @@ export class Router {
         return route
     }
 
+    put = (routePath: string, callBack: TCallBack) => {
+        const route = new Route(this.prefix + routePath)
+
+        this.expressRouter.put(route.routePath, async (request: Request, response: Response, next) => {
+            return await ActRouter({
+                route,
+                request,
+                response,
+                callBack,
+                next,
+            })
+        })
+
+        return route
+    }
+
 }
