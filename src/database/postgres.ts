@@ -41,6 +41,8 @@ export class DatabaseInstance {
             } = this.connection.models
 
             AccountsModel.hasOne(AccessTokensModel, { foreignKey: { name: 'account_id' } })
+            AccountsModel.hasOne(ArticlesModel, { foreignKey: { name: 'account_id' } })
+            
             CategoriesModel.hasOne(ArticlesModel, { foreignKey: { name: 'category_id' } })
 
             console.log('Database models & relations initialized!')

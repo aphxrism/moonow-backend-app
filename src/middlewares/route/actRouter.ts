@@ -63,10 +63,11 @@ export async function ActRouter (input: ActRouterInput): Promise<void> {
                     source: 'ActRouter()',
                 })
             }
+
             if (!route.validation[key](payload[key])) {
                 throw PortalError({
                     code: `${ErrorCodes.api.invalid}.${key}`,
-                    message: `Field '${key}' has an invalid value [${payload[key]}]`,
+                    message: `Field '${key}' has an invalid value [${(typeof payload[key] === 'object' ? JSON.stringify(payload[key]) : payload[key])}]`,
                     status: HttpStatusCodes.BAD_REQUEST,
                     source: 'ActRouter()',
                 })

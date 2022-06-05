@@ -1,5 +1,5 @@
 export interface IValidator {
 
-    [key: string]: (value: string) => boolean;
+    [key: string]: (value: any) => boolean
 
 }

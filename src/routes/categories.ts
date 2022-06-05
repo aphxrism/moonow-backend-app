@@ -3,6 +3,4 @@ import { CategoriesController } from '../controllers/categories'
 
 export const CategoriesRouter = new Router('/categories')
 
-CategoriesRouter.get('/', CategoriesController.getCategories).configure({
-    authorized: true,
-})
+CategoriesRouter.get('/', CategoriesController.getCategories)

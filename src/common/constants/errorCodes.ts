@@ -6,8 +6,9 @@ export const ErrorCodes = {
         emailExists: 'emailExists',
         invalidToken: 'invalidToken',
         accessDenied: 'accessDenied',
-        accountNotFound: 'accountNotFound',
         wrongPassword: 'wrongPassword',
+        accountNotFound: 'accountNotFound',
+        categoryNotFound: 'categoryNotFound',
         failedToGenerateToken: 'failedToGenerateToken',
     },
 }
