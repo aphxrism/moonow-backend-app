@@ -8,12 +8,13 @@ export const GeneralValidations: IValidator = {
     password: (value: string) => validator.isStrongPassword(value),
     isNotEmpty: (value: string) => value.length > 0,
     id: (value: number) => typeof value === 'number',
+    categoryShortName: (value: string) => value.length === 3,
 
 }
 
 export const ArticlesValidation = {
     title: GeneralValidations.isNotEmpty,
-    short_name: (value: string) => value ? true : false,
+    short_name: GeneralValidations.categoryShortName,
     content: (value: IArticleContent) => {
         if (value === null) return false
 

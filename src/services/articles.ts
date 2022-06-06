@@ -14,6 +14,7 @@ export namespace ArticlesService {
         const category = await CategoriesModel.findOne({
             where: {
                 short_name: payload.short_name,
+                disabled: false,
             },
         })
 
@@ -43,6 +44,7 @@ export namespace ArticlesService {
         const category = await CategoriesModel.findOne({
             where: {
                 short_name: payload.short_name,
+                disabled: false,
             },
         })
 

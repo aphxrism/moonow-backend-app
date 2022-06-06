@@ -7,6 +7,7 @@ export const ErrorCodes = {
         invalidToken: 'invalidToken',
         accessDenied: 'accessDenied',
         wrongPassword: 'wrongPassword',
+        categoryExists: 'categoryExists',
         accountNotFound: 'accountNotFound',
         articleNotFound: 'articleNotFound',
         categoryNotFound: 'categoryNotFound',

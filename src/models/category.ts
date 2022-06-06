@@ -4,6 +4,7 @@ import { DatabaseConfig } from '../database/config'
 export class CategoriesModel extends Model {
     id!: number
     short_name!: string
+    disabled!: boolean
 }
 
 export function initializeCategoriesModel (sequelize: Sequelize): any {
@@ -15,7 +16,12 @@ export function initializeCategoriesModel (sequelize: Sequelize): any {
         },
         short_name: {
             type: DataTypes.STRING(3),
-            allowNull: true,
+            allowNull: false,
+        },
+        disabled: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
         },
     }, {
         sequelize,
