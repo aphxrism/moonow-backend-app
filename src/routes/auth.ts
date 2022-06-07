@@ -11,6 +11,7 @@ AuthRouter.post('/register', AuthController.register)
     .validate({
         email: GeneralValidations.email,
         password: GeneralValidations.password,
+        user_name: (value: string) => value.length > 0 && typeof value === 'string',
     })
 
 AuthRouter.post('/login', AuthController.login)

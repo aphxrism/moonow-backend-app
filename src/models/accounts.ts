@@ -3,7 +3,7 @@ import { AccountRoles } from '../common/constants/accountRoles'
 import { DatabaseConfig } from '../database/config'
 
 export class AccountsModel extends Model {
-    id!: number
+    id!: string
     email!: string
     hash!: string
     role!: AccountRoles
@@ -12,8 +12,7 @@ export class AccountsModel extends Model {
 export function initializeAccountsModel (sequelize: Sequelize): any {
     return AccountsModel.init({
         id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
+            type: DataTypes.UUID,
             primaryKey: true,
         },
         email: {
@@ -28,7 +27,11 @@ export function initializeAccountsModel (sequelize: Sequelize): any {
             type: DataTypes.ENUM(...Object.values(AccountRoles)),
             defaultValue: AccountRoles.READER,
             allowNull: false,
-        }
+        },
+        user_name: {
+            type: DataTypes.STRING(48),
+            allowNull: false,
+        },
     }, {
         sequelize,
         tableName: DatabaseConfig.TABLE_NAMES.Accounts,

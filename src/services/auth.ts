@@ -7,17 +7,13 @@ import { ErrorCodes } from '../common/constants/errorCodes'
 import { HttpStatusCodes } from '../common/constants/httpStatusCodes'
 import { JsonWebToken } from '../common/utilities/jsonWebToken'
 import { AccessTokensModel } from '../models/accessToken'
+import { v4 as uuidv4 } from 'uuid'
 
 export namespace AuthService {
 
     export async function register (body: RegisterPayload): Promise<OperationResult> {
-        const foundAccount = await AccountsModel.findOne({
-            where: {
-                email: body.email,
-            },
-        })
-
-        if (foundAccount) {
+        const foundAccountEmail = await AccountsModel.findOne({ where: { email: body.email } })
+        if (foundAccountEmail) {
             throw PortalError({
                 message: `Account with email ${body.email} is already exists`,
                 code: ErrorCodes.api.emailExists,
@@ -27,8 +23,11 @@ export namespace AuthService {
         }
         
         const hash = await Password.hash(body.password)
+        const uuid = uuidv4()
 
         await AccountsModel.create({
+            id: uuid,
+            user_name: `0x${uuid}`,
             email: body.email,
             hash,
         })
